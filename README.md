@@ -24,7 +24,7 @@ git clone https://github.com/dhillen-bp/random-team-bot.git
    <br><img alt="run ngrok http" src="https://i.imgur.com/fWm3nZf.png" width="600px"><br>
 
 5. Update the .env file to look like this:
-   <br><img alt="update .env file" src="https://i.imgur.com/fWm3nZf.png" width="600px"><br>
+   <br><img alt="update .env file" src="https://i.imgur.com/SHNen4V.png" width="600px"><br>
 
 6. On the browser run `http://localhost:8000/api/setWebhook` to register the webhook url to the telegram bot. If true, it will display the die dump true display.
 
