@@ -37,6 +37,7 @@ return [
             'webhook_url' => env('TELEGRAM_WEBHOOK_URL', 'YOUR-BOT-WEBHOOK-URL'),
             'commands' => [
                 //Acme\Project\Commands\MyTelegramBot\BotCommand::class
+                Telegram\Bot\Commands\HelpCommand::class,
             ],
         ],
 
@@ -187,8 +188,7 @@ return [
                 'status', // Shared Command Name.
                 'Acme\Project\Commands\BotCommand' // Full Path to Command Class.
            ],
-        */
-    ],
+        */],
 
     /*
     |--------------------------------------------------------------------------

@@ -20,5 +20,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('setWebhook', [BotTelegramController::class, 'setWebhook']);
-Route::post('php_random_team_bot/webhook', [BotTelegramController::class, 'commandHandlerWebhook']);
-Route::post('php_random_team_bot/randomteam', [BotTelegramController::class, 'randomTeamHandler']);
+Route::post('telegram/webhook', [BotTelegramController::class, 'commandHandlerWebhook']);

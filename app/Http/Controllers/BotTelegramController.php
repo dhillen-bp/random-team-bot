@@ -20,29 +20,34 @@ class BotTelegramController extends Controller
         $username = $updates->getChat()->getFirstName();
         $command = $updates->getMessage()->getText();
 
-        if ($command === '/') {
-            return;
+        if ($command === '/start') {
+            $response = Telegram::sendMessage([
+                'chat_id'   => $chat_id,
+                'text'      => 'Type /help to show the commands'
+            ]);
+            // return response()->json(['response' => $response]);
         } elseif (strtolower($command === '/halo')) {
             return Telegram::sendMessage([
                 'chat_id'   => $chat_id,
-                'text'      => 'Halo ' . $username
+                'text'      => 'Hallo ' . $username
             ]);
         } elseif (strtolower($command) === '/randomteam') {
-            $teamMembers = [
-                'Anggota 1',
-                'Anggota 2',
-                'Anggota 3',
-                'Anggota 4',
-                'Anggota 5',
-                'Anggota 6',
-                // Tambahkan anggota tim lainnya sesuai kebutuhan
-            ];
+            // Mengirim pesan untuk meminta anggota tim dari pengguna
+            return Telegram::sendMessage([
+                'chat_id' => $chat_id,
+                'text' => "Please enter team members, separated by commas (,).\n(For example: /randomteam member1, member2, member3)\n Make sure after /randomteam put a space,\n - correct example: /randomteam member1, member2 ✅\n - wrong example: /randomteammember1, member2 ❌"
+            ]);
+        } elseif (strpos($command, '/randomteam') === 0) {
+            // Memproses perintah untuk menghasilkan tim-tim acak
+            $teamMembersInput = str_replace('/randomteam ', '', $command);
+            $teamMembersInput = explode(',', $teamMembersInput);
+            $teamMembersInput = array_map('trim', $teamMembersInput);
 
-            shuffle($teamMembers);
+            shuffle($teamMembersInput);
 
             $numTeams = 2;
 
-            $teams = array_chunk($teamMembers, count($teamMembers) / $numTeams);
+            $teams = array_chunk($teamMembersInput, count($teamMembersInput) / $numTeams);
 
             $responseText = "Tim-tim acak:\n";
             foreach ($teams as $index => $team) {
@@ -77,15 +82,5 @@ class BotTelegramController extends Controller
                 'text' => $responseText,
             ]);
         }
-    }
-
-    public function randomTeamHandler()
-    {
-        // $updates = Telegram::commandsHandler(true);
-        // $chatId = $updates->getChat()->getId();
-        // $message = $updates->getMessage()->getText();
-
-        // if (strtolower($message) === '/randomteam') {
-        // }
     }
 }
