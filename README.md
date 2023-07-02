@@ -15,13 +15,13 @@ git clone https://github.com/idekita/cloud-computing.git
 ```
 
 2. Create Telegram Bots in [Bot Father] (https://t.me/BotFather). After successfully creating a bot, you will receive a Bot Token. In my example the sensor.
-   <img alt="mockup" src="https://i.imgur.com/sCLBnjf.png" width="150px"><br>
+   <img alt="mockup" src="https://i.imgur.com/sCLBnjf.png" width="450px"><br>
 
 3. Jalankan `php artisan serve`
-   <img alt="mockup" src="https://i.imgur.com/Ize6aw8.png" width="150px><br>
+   <img alt="mockup" src="https://i.imgur.com/Ize6aw8.png" width="450px"><br>
 
 4. Jalankan `php artisan serve`
-   <img alt="mockup" src="https://i.imgur.com/fWm3nZf.png" width="150px><br>
+   <img alt="mockup" src="https://i.imgur.com/fWm3nZf.png" width="450px"><br>
 
 ## Learning References
 
