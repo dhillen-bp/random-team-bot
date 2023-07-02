@@ -29,7 +29,7 @@ class BotTelegramController extends Controller
         } elseif (strtolower($command === '/halo')) {
             return Telegram::sendMessage([
                 'chat_id'   => $chat_id,
-                'text'      => 'Hallo ' . $username
+                'text'      => 'Hello ' . $username
             ]);
         } elseif (strtolower($command) === '/randomteam') {
             // Mengirim pesan untuk meminta anggota tim dari pengguna
@@ -49,7 +49,7 @@ class BotTelegramController extends Controller
 
             $teams = array_chunk($teamMembersInput, count($teamMembersInput) / $numTeams);
 
-            $responseText = "Tim-tim acak:\n";
+            $responseText = "Random Teams:\n";
             foreach ($teams as $index => $team) {
                 $responseText .= "Tim " . ($index + 1) . ":\n";
                 foreach ($team as $member) {
