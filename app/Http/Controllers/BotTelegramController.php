@@ -35,16 +35,14 @@ class BotTelegramController extends Controller
             // Send a message to request team members from the user
             return Telegram::sendMessage([
                 'chat_id' => $chat_id,
-                'text' => "Please enter team members, separated by commas (,).\n(For example: /randomteam member1, member2, member3)\n Make sure after /randomteam put a space,\n - correct example: /randomteam member1, member2 ✅\n - wrong example: /randomteammember1, member2 ❌"
+                'text' => "Please enter team members, separated by commas (,).\nDefault number of teams = 2\nMake sure after /randomteam put a space,
+                \n ⁃ correct example: \n  • /randomteam member1, member2 ✅\n  • /randomteam 3 member1, member2, member3, member4 ✅
+                \n ⁃ wrong example: \n  • /randomteammember1, member2 ❌\n  • /randomteam 1 member1, member2 ❌"
             ]);
         } elseif (strpos($command, '/randomteam') === 0) {
             // Process commands to generate random teams
             $commandParts = explode(' ', $command);
             $numTeams = 2; // Default number of teams
-
-            if (count($commandParts) > 1 && is_numeric($commandParts[1])) {
-                $numTeams = max(2, (int)$commandParts[1]); // Uses number of teams entered by the user
-            }
 
             // Check if the number of teams is less than 2
             if ($numTeams < 2) {
@@ -54,7 +52,11 @@ class BotTelegramController extends Controller
                 ]);
             }
 
-            $teamMembersInput = preg_replace('/[^a-zA-Z0-9\s,]/', '', $command);
+            if (count($commandParts) > 1 && is_numeric($commandParts[1])) {
+                $numTeams = max(2, (int)$commandParts[1]); // Uses number of teams entered by the user
+            }
+
+            // $teamMembersInput = preg_replace('/[^a-zA-Z0-9\s,]/', '', $command);
             $teamMembersInput = str_replace('/randomteam', '', $command);
             $teamMembersInput = trim($teamMembersInput);
             $teamMembersInput = explode(',', $teamMembersInput);
@@ -67,10 +69,13 @@ class BotTelegramController extends Controller
                 ]);
             }
 
+            // Shuffle the array of team members to randomize the order
             shuffle($teamMembersInput);
 
+            // Calculate the team size based on the number of team members and the specified number of teams
             $teamSize = ceil(count($teamMembersInput) / $numTeams);
 
+            // Divide the shuffled array of team members into separate teams
             $teams = array_chunk($teamMembersInput, $teamSize);
 
             $responseText = "Random Teams:\n";
